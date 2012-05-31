@@ -46,24 +46,23 @@
                 var a = lastThuOfThisMonth.getTime();
                 var b = new Date().getTime();
                 var c = (a - b) / 1000;
-                var d = Math.round(c / (60 * 60 * 24));
+                var d = Math.floor(c / (60 * 60 * 24));
                 var g = (c % (60 * 60 * 24));
-                var e = Math.round(g / (60 * 60));
+                var e = Math.floor(g / (60 * 60));
                 var h = (c % (60 * 60));
-                var f = Math.round(h / (60));
-                var h = Math.round(c % (60));
+                var f = Math.floor(h / (60));
+                var h = Math.floor(c % (60));
 
                 if(c >0) {
                     var answer;
                     if(d > 0) {
                         $("#header").html("Nee :(");
                         $("#header").css("color", "#990022");
-                    } else if(d == 0 && e > 0) {
+                    } else if(d == 0 && e >= 0) {
                         $("#header").html("Bijna");
                         $("#header").css("color", "#cc4411");
                     }
                     $("#message").html("De LADO van de MABO is over {0} dagen, {1} uur, {2} minuten en {3} seconden".format(d, e, f, h));
-                    setTimeout("showSeconds()", 1000);
                 } else {
                     $("#header").css("color", "#33DD44");
                     $("#header").html("JA! :D");
@@ -73,6 +72,7 @@
 
                 $("#date").html("Wanneer: " + lastThuOfThisMonth.toString("dd ") + month_names[lastThuOfThisMonth.getMonth()] + lastThuOfThisMonth.toString(" HH:mm"));
 
+                    setTimeout("showSeconds()", 1000);
             }
 
         </script>
