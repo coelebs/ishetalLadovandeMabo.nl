@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="date.js"></script>
+
+        <style type="text/css">
+           html {
+               background: url('background.jpg') no-repeat center center fixed;
+               -webkit-background-size: cover;
+               -moz-background-size: cover;
+               -o-background-size: cover;
+               background-size: cover;
+           }    
+        </style>
+        <title>Is het al LADO van de MABO</title>
+    </head>
+    <body style="font-family:verdana;">
+
+            <script type="text/javascript">
+
+            $(document).ready(function(){
+                showSeconds();
+            });
+
+            String.prototype.format = function() {
+                var formatted = this;
+                for (var i = 0; i < arguments.length; i++) {
+                    var regexp = new RegExp('\\{'+i+'\\}', 'gi');
+                    formatted = formatted.replace(regexp, arguments[i]);
+                }
+                return formatted;
+            };
+
+            
+            function showSeconds() {
+                var lastThuOfThisMonth;
+                
+                var today = new Date(2012, new Date().getMonth(), 1, 17, 0, 0, 0);
+
+                today.moveToLastDayOfMonth().last().is().thursday() ? 
+                lastThuOfThisMonth = today.moveToLastDayOfMonth().last() :
+                lastThuOfThisMonth = today.moveToLastDayOfMonth().last().thursday();
+
+
+                var a = lastThuOfThisMonth.getTime();
+                var b = new Date().getTime();
+                var c = (a - b) / 1000;
+                var d = Math.round(c / (60 * 60 * 24));
+                var g = (c % (60 * 60 * 24));
+                var e = Math.round(g / (60 * 60));
+                var h = (c % (60 * 60));
+                var f = Math.round(h / (60));
+                var h = Math.round(c % (60));
+
+                if(c >0) {
+                    var answer;
+                    if(d > 0) {
+                        $("#header").html("Nee :(");
+                        $("#header").css("color", "#990022");
+                    } else if(d == 0 && e > 0) {
+                        $("#header").html("Bijna");
+                        $("#header").css("color", "#cc4411");
+                    }
+                    $("#message").html("De LADO van de MABO is over {0} dagen, {1} uur, {2} minuten en {3} seconden".format(d, e, f, h));
+                    setTimeout("showSeconds()", 1000);
+                } else {
+                    $("#header").css("color", "#33DD44");
+                    $("#header").html("JA! :D");
+                    $("#message").html("Komt allen!");
+                }
+                var month_names = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+
+                $("#date").html("Wanneer: " + lastThuOfThisMonth.toString("dd ") + month_names[lastThuOfThisMonth.getMonth()] + lastThuOfThisMonth.toString(" HH:mm"));
+
+            }
+
+        </script>
+
+        <div style="margin: 200px auto 20px auto;font-size: 32">
+            <h1 id="header" style="text-align: center; font-size:80px" >
+                Weet ik niet
+            </h1>
+        </div>
+        <p id="message" style="text-align: center;" >
+
+        </p>
+        <p id="date" style="text-align: center;color:#e2007a" >
+
+        </p>
+        <p id="location" style="text-align: center;color:#a4a6a7" >
+            Waar: Kantine van TASS Eindhoven
+        </p>
+
+    </body>
+</html>
